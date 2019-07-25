@@ -4,6 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
         xmlns:ViewModels="clr-namespace:wpf_gastosPessoais.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:wpf_gastosPessoais"
+        xmlns:Views="clr-namespace:wpf_gastosPessoais.Views"
+        xmlns:b="clr-namespace:wpf_gastosPessoais.Behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Background="#FF1E1E1E"
@@ -17,6 +21,68 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        
+        <TabControl Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabPanel}">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <StackPanel Name="Panel">
+                                    <Label Name="TabName" HorizontalContentAlignment="Center" Foreground="White">
+                                        <ContentPresenter x:Name="ContentSite"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      ContentSource="Header"
+                                                      />
+                                    </Label>
+                                    <Rectangle Name="Rectangle" Width="150" Height="15"/>
+                                </StackPanel>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter TargetName="TabName" Property="Foreground" Value="#FFFF9D0E"/>
+                                        <Setter TargetName="Rectangle" Property="Fill" Value="#FFFF9D0E"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="false">
+                                        <Setter TargetName="TabName" Property="Foreground" Value="#FF9C9C9C"/>
+                                        <Setter TargetName="Rectangle" Property="Fill" Value="#FF9C9C9C"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Lançamentos" Width="150" Height="50" FontSize="22">
+                <Views:EntriesView x:Name="entryView"/>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="addBtn" Width="50" Height="50" 
+                Style="{StaticResource ResourceKey=RoundedButtonTemplate}"
+                Background="#FF5F37B2"
+                BorderBrush="Black"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Margin="30"
+                FontSize="36" FontWeight="Bold"
+                >
+            <i:Interaction.Behaviors>
+                <b:DropdownButtonBehavior/>
+            </i:Interaction.Behaviors>
+            <Button.Content>
+                <Viewbox Width="48" Height="48">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="White" />
+                    </Canvas>
+                </Viewbox>
+            </Button.Content>
+            <Button.ContextMenu>
+                <ContextMenu Placement="Top">
+                    <MenuItem Header="Lançamento" 
+                              Command="{Binding Source={x:Reference Name=entryView}, Path=DataContext.AddEntry}"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
     </Grid>
 </Window>
