@@ -16,6 +16,11 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
+        <Label Visibility="{Binding NoneSpentsVisibility}" Content="Nenhuma despesa"
+               Foreground="WhiteSmoke"
+               FontFamily="20"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               />
         <StackPanel>
             <StackPanel>
                 <TextBlock Text="{Binding Balance, Mode=OneWay}"
@@ -35,7 +40,6 @@
                            HorizontalContentAlignment="Center" Foreground="Red"/>
                 </StackPanel>
             </StackPanel>
-            <Label Visibility="{Binding NoneSpentsVisibility}" Content="Nenhuma despesa"/>
             <LiveChart:PieChart Height="250"
                             Series="{Binding SpentDistribution}"
                             DataTooltip="{x:Null}"
