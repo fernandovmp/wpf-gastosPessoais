@@ -9,6 +9,7 @@ using wpf_gastosPessoais.Models;
 using System.Windows;
 using System.Collections.Specialized;
 using System.Windows.Input;
+using wpf_gastosPessoais.Misc;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -17,7 +18,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         public EntriesViewModel()
         {
-            entries = new ObservableCollection<Entry>(DatabaseManager.ReadAll<Entry>());
+            entries = new TrulyObservableCollection<Entry>(DatabaseManager.ReadAll<Entry>());
             entries.CollectionChanged += Entries_CollectionChanged;
             entryControls = new ObservableCollection<EntryControlViewModel>();
             foreach (var item in entries)
@@ -28,9 +29,9 @@ namespace wpf_gastosPessoais.ViewModels
         }
 
         private ICommand                                        addEntry;
-        private ObservableCollection<Entry>                     entries;
+        private TrulyObservableCollection<Entry>                entries;
         private ObservableCollection<EntryControlViewModel>     entryControls;
-        public  ObservableCollection<Entry>                     AllEntries
+        public  TrulyObservableCollection<Entry>                AllEntries
         {
             get => entries;
             set

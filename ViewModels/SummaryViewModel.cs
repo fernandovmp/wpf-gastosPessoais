@@ -8,6 +8,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using wpf_gastosPessoais.Models;
 using System.Windows;
+using wpf_gastosPessoais.Misc;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -19,7 +20,7 @@ namespace wpf_gastosPessoais.ViewModels
             
         }
 
-        private ObservableCollection<Entry> entries;
+        private TrulyObservableCollection<Entry> entries;
         private SeriesCollection spentDistribution;
         private decimal balance;
         private decimal income;
@@ -33,13 +34,12 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("SpentDistribution");
             }
         }
-        public  ObservableCollection<Entry> Entries
+        public TrulyObservableCollection<Entry> Entries
         {
             get => entries;
             set
             {
                 entries = value;
-                //entries.CollectionChanged += (sender, e) => UpdateInfo();
                 UpdateInfo();
                 UpdateBalance();
                 OnPropertyChanged("Entries");

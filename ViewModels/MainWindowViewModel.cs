@@ -20,6 +20,7 @@ namespace wpf_gastosPessoais.ViewModels
             {
                 Entries = EntriesViewModel.AllEntries
             };
+            EntriesViewModel.AllEntries.ItemChanged += AllEntries_ItemChanged;
         }
 
         public EntriesViewModel EntriesViewModel { get; set; }
@@ -29,6 +30,11 @@ namespace wpf_gastosPessoais.ViewModels
         {
             if (args.PropertyName == "AllEntries")
                 SummaryViewModel.Entries = EntriesViewModel.AllEntries;
+        }
+
+        private void AllEntries_ItemChanged(object sender, Misc.ItemChangedEventArgs<Models.Entry> e)
+        {
+            SummaryViewModel.Entries = EntriesViewModel.AllEntries;
         }
 
     }

@@ -10,18 +10,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using wpf_gastosPessoais;
 using wpf_gastosPessoais.Models;
+using wpf_gastosPessoais.Misc;
 
 namespace wpf_gastosPessoais.ViewModels
 {
     public class EntryControlViewModel : ViewModelBase
     {
 
-        public  EntryControlViewModel(ref ObservableCollection<Entry> collection)
+        public  EntryControlViewModel(ref TrulyObservableCollection<Entry> collection)
         {
             Entries = collection;
         }
         
-        private ObservableCollection<Entry> Entries { get; set; }
+        private TrulyObservableCollection<Entry> Entries { get; set; }
         private ICommand        deleteEntry;
         private ICommand        editEntry;
         public  Entry           Entry { get; set; }
