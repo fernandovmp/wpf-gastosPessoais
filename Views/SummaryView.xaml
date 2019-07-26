@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="wpf_gastosPessoais.Views.SummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wpf_gastosPessoais.Views"
+             xmlns:ViewModels="clr-namespace:wpf_gastosPessoais.ViewModels"
+             xmlns:LiveChart="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/GenericStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding Balance, Mode=OneWay}"
+                 VerticalAlignment="Top"
+                 TextAlignment="Center"
+                 FontSize="20"
+                 Height="30" 
+                 Foreground="WhiteSmoke"
+                 Background="{x:Null}"
+                 />
+                <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center">
+                    <Label Content="{Binding Income}" 
+                           FontSize="18"
+                           HorizontalContentAlignment="Center" Foreground="LimeGreen"/>
+                    <Label Content="{Binding Spents}" 
+                           FontSize="18"
+                           HorizontalContentAlignment="Center" Foreground="Red"/>
+                </StackPanel>
+            </StackPanel>
+            <Label Visibility="{Binding NoneSpentsVisibility}" Content="Nenhuma despesa"/>
+            <LiveChart:PieChart Height="250"
+                            Series="{Binding SpentDistribution}"
+                            DataTooltip="{x:Null}"
+                            LegendLocation="Right"
+                            >
+                <LiveChart:PieChart.ChartLegend>
+                    <LiveChart:DefaultLegend Foreground="White" FontSize="18"
+                                         Margin="-200, 0, 200, 0"/>
+                </LiveChart:PieChart.ChartLegend>
+            </LiveChart:PieChart>
+        </StackPanel>
+    </Grid>
+</UserControl>
