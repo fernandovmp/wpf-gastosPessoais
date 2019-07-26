@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\EntriesViewModel.cs" />
+    <Compile Include="ViewModels\SummaryViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Behaviors\DropdownButtonBehavior.cs" />
     <Compile Include="Views\EditEntryView.xaml.cs">
@@ -93,6 +94,9 @@
     </Compile>
     <Compile Include="Views\EntryControl.xaml.cs">
       <DependentUpon>EntryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SummaryView.xaml.cs">
+      <DependentUpon>SummaryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Watermark.cs" />
     <Compile Include="Views\WatermarkAdoner.cs" />
@@ -111,6 +115,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WindowHostView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

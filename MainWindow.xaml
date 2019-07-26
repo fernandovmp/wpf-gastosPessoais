@@ -20,7 +20,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid DataContext="{StaticResource ResourceKey=MainWindowVM}">
         <TabControl Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabPanel}">
@@ -55,8 +55,11 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
+            <TabItem Header="Geral" Width="150" Height="50" FontSize="22">
+                <Views:SummaryView DataContext="{Binding SummaryViewModel}"/>
+            </TabItem>
             <TabItem Header="Lançamentos" Width="150" Height="50" FontSize="22">
-                <Views:EntriesView x:Name="entryView"/>
+                <Views:EntriesView x:Name="entryView" DataContext="{Binding EntriesViewModel}"/>
             </TabItem>
         </TabControl>
         <Button x:Name="addBtn" Width="50" Height="50" 

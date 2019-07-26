@@ -11,18 +11,13 @@
              >
     <UserControl.Resources>
         <ResourceDictionary>
-            <ViewModels:EntriesViewModel x:Key="EntriesVM"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/GenericStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <StaticResource ResourceKey="EntriesVM"/>
-    </UserControl.DataContext>
     <Grid Name="canvas"
           >
-          <!--DataContext="{Binding Source={StaticResource ResourceKey=EntriesVM}}"-->
         <StackPanel Name="addFirstEntry" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Visibility="{Binding FirstEntryVisibility}"
                     >

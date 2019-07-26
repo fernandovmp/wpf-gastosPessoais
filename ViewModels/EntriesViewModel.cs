@@ -91,7 +91,7 @@ namespace wpf_gastosPessoais.ViewModels
                     DatabaseManager.Save((Entry)item);
                 }
             }
-            OnPropertyChanged("FirstEntryVisibility", "EntryGridVisibility");
+            OnPropertyChanged("FirstEntryVisibility", "EntryGridVisibility", "AllEntries");
         }
 
         private void AddEntryControlVM(Entry item)
