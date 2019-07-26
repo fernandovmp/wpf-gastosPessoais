@@ -18,6 +18,11 @@ namespace wpf_gastosPessoais.Models
         [DBOption(ColumnName = "Editable")]
         public bool         Editable { get; set; }
 
+        public decimal      SignedValue
+        {
+            get => Value * (int)EntryType;
+        }
+
         public Entry()
         {
             Name = "";
