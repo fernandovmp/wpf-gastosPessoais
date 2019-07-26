@@ -98,6 +98,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void UpdateBalance()
         {
+            balance = income = spents = 0;
             foreach (var entry in Entries)
             {
                 balance += entry.SignedValue;
