@@ -10,14 +10,13 @@ using wpf_gastosPessoais.Models;
 
 namespace wpf_gastosPessoais.ViewModels
 {
-    public class EditEntryViewModel : ViewModelBase
+    public class EditEntryViewModel : EditBaseViewModel
     {
 
         public EditEntryViewModel(EntryControlViewModel entryControl)
         {
             this.entryControl = entryControl;
             Entry entry = entryControl.Entry;
-            confirm = new RelayCommand(EditEntryCommand);
             EntryName = entry.Name;
             EntryValue = entry.Value.ToString("F2");
             EntryGroup = entry.Group;
@@ -27,7 +26,6 @@ namespace wpf_gastosPessoais.ViewModels
         public EditEntryViewModel(EntriesViewModel entriesViewModel)
         {
             this.entriesViewModel = entriesViewModel;
-            confirm = new RelayCommand(AddEntryCommand);
             EntryName = "";
             EntryValue = "";
             EntryGroup = "";
@@ -35,11 +33,8 @@ namespace wpf_gastosPessoais.ViewModels
             isEditMode = false;
         }
 
-        private ICommand                    confirm;
         private ICommand                    checkbox;
-        private ICommand                    cancel;
         private bool                        isCredit;
-        private bool                        isEditMode;
         private EntriesViewModel            entriesViewModel;
         private EntryControlViewModel       entryControl;
         public  string      EntryName { get; set; }
@@ -61,16 +56,6 @@ namespace wpf_gastosPessoais.ViewModels
 
             }
         }
-        public  ICommand    Confirm
-        {
-            get
-            {
-                if (confirm == null)
-                    confirm = new RelayCommand(AddEntryCommand);
-                return confirm;
-            }
-            set => confirm = value;
-        }
         public  ICommand    Checkbox
         {
             get
@@ -81,27 +66,6 @@ namespace wpf_gastosPessoais.ViewModels
             }
             set => checkbox = value;
         }
-        public  ICommand    Cancel
-        {
-            get
-            {
-                if (cancel == null)
-                    cancel = new RelayCommand(CloseWindow);
-                return cancel;
-            }
-            set => cancel = value;
-        }
-        public  Visibility  CheckboxVisibility
-        {
-            get
-            {
-                return isEditMode ? Visibility.Collapsed : Visibility.Visible;
-            }
-            set
-            {
-                isEditMode = value == Visibility.Visible ? false : true;
-            }
-        }
 
         private void CheckIsCredit(object parameter)
         {
@@ -109,7 +73,7 @@ namespace wpf_gastosPessoais.ViewModels
             OnPropertyChanged("IsCredit", "IsDebit");
         }
 
-        private void AddEntryCommand(object parameter)
+        protected override void AddCommand(object parameter)
         {
             decimal.TryParse(EntryValue, out decimal value);
             Entry entry = new Entry
@@ -120,10 +84,10 @@ namespace wpf_gastosPessoais.ViewModels
                 EntryType = isCredit ? EntryType.Credit : EntryType.Debit
             };
             entriesViewModel.AllEntries.Add(entry);
-            CloseWindow(parameter);
+            base.AddCommand(parameter);
         }
 
-        private void EditEntryCommand(object parameter)
+        protected override void EditCommand(object parameter)
         {
             decimal.TryParse(EntryValue, out decimal value);
             entryControl.Entry.Name = EntryName;
@@ -131,12 +95,7 @@ namespace wpf_gastosPessoais.ViewModels
             entryControl.Entry.Value = value;
             entryControl.SaveEdit();
             entryControl.NotifyEdit();
-            CloseWindow(parameter);
-        }
-
-        private void CloseWindow(object parameter)
-        {
-            ((Window)parameter).Close();
+            base.EditCommand(parameter);
         }
     }
 }
