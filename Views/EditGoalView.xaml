@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="wpf_gastosPessoais.Views.EditGoalView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:wpf_gastosPessoais.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="170" d:DesignWidth="500"
+             Height="170" Width="500"
+             Background="#FF1E1E1E"
+             >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/GenericStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Canvas>
+        <TextBox Text="{Binding GoalName}" 
+                 FontSize="16" 
+                 Background="White" BorderBrush="Black"
+                 Canvas.Left="10" Canvas.Top="38" Width="300"
+                 >
+            <local:Watermark.Watermark>
+                <Label Content="Nome..." VerticalContentAlignment="Center" FontStyle="Italic"/>
+            </local:Watermark.Watermark>
+        </TextBox>
+
+        <TextBox Text="{Binding GoalValue}"
+                 FontSize="16"
+                 Background="White" BorderBrush="Black" 
+                 Canvas.Left="10" Canvas.Top="75" Width="225"
+                 >
+            <local:Watermark.Watermark>
+                <Label Content="Valor do objetivo" VerticalContentAlignment="Center" FontStyle="Italic"/>
+            </local:Watermark.Watermark>
+        </TextBox>
+        <TextBox Text="{Binding GoalSavedValue}"
+                 Visibility="{Binding AddVisibility}"
+                 FontSize="16"
+                 Background="White" BorderBrush="Black" 
+                 Canvas.Left="250" Canvas.Top="75" Width="225"
+                 >
+            <local:Watermark.Watermark>
+                <Label Content="Valor inicial" VerticalContentAlignment="Center" FontStyle="Italic"/>
+            </local:Watermark.Watermark>
+        </TextBox>
+        <Button Style="{StaticResource ResourceKey=RoundedButtonTemplate}"
+                Command="{Binding Cancel}" 
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                Content="Cancelar"
+                Foreground="White" Background="#FFFF9D0E" BorderBrush="Black"
+                FontSize="22" BorderThickness="2"
+                Canvas.Left="10" Canvas.Top="110" Height="40" Width="150" />
+        <Button Style="{StaticResource ResourceKey=RoundedButtonTemplate}"
+                Command="{Binding Confirm}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                Content="Confirmar"
+                Foreground="White" Background="#FFFF9D0E" BorderBrush="Black"
+                FontSize="22" BorderThickness="2"
+                Canvas.Left="310" Canvas.Top="110" Height="40" Width="150" />
+    </Canvas>
+</UserControl>
