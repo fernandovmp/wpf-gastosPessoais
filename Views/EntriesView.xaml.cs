@@ -24,14 +24,5 @@ namespace wpf_gastosPessoais.Views
         {
             InitializeComponent();
         }
-        /*
-        public  ICommand    AddEntry
-        {
-            get => (ICommand)GetValue(AddEntryProperty);
-            set => SetValue(AddEntryProperty, value);
-        }
-
-        public static DependencyProperty AddEntryProperty = DependencyProperty.Register("AddEntry",
-            typeof(ICommand), typeof(EntriesView));*/
     }
 }
