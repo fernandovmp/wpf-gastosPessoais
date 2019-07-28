@@ -21,10 +21,12 @@ namespace wpf_gastosPessoais.ViewModels
                 Entries = EntriesViewModel.AllEntries
             };
             EntriesViewModel.AllEntries.ItemChanged += AllEntries_ItemChanged;
+            GoalsViewModel = new GoalsViewModel();
         }
 
         public EntriesViewModel EntriesViewModel { get; set; }
         public SummaryViewModel SummaryViewModel { get; set; }
+        public GoalsViewModel   GoalsViewModel { get; set; }
 
         private void EntriesViewModel_PropertyChanged(object sender, PropertyChangedEventArgs args)
         {

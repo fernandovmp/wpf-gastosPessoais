@@ -61,6 +61,9 @@
             <TabItem Header="Lançamentos" Width="150" Height="50" FontSize="22">
                 <Views:EntriesView x:Name="entryView" DataContext="{Binding EntriesViewModel}"/>
             </TabItem>
+            <TabItem Header="Objetivos" Width="150" Height="50" FontSize="22">
+                <Views:GoalsView x:Name="goalView" DataContext="{Binding GoalsViewModel}"/>
+            </TabItem>
         </TabControl>
         <Button x:Name="addBtn" Width="50" Height="50" 
                 Style="{StaticResource ResourceKey=RoundedButtonTemplate}"
@@ -84,6 +87,8 @@
                 <ContextMenu Placement="Top">
                     <MenuItem Header="Lançamento" 
                               Command="{Binding Source={x:Reference Name=entryView}, Path=DataContext.AddEntry}"/>
+                    <MenuItem Header="Objetivo" 
+                              Command="{Binding Source={x:Reference Name=goalView}, Path=DataContext.AddGoal}"/>
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>
