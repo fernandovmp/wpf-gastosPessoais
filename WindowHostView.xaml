@@ -21,8 +21,19 @@
                                  Confirm="{Binding Confirm}"
                                  Cancel="{Binding Cancel}"
                                  Checkbox="{Binding Checkbox}"
-                                 CheckboxVisibility="{Binding CheckboxVisibility}"
+                                 CheckboxVisibility="{Binding AddVisibility}"
                                  />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:EditGoalViewModel}">
+            <Views:EditGoalView GoalName="{Binding GoalName}"
+                                GoalSavedValue="{Binding GoalValue}"
+                                GoalValue="{Binding GoalValue}"
+                                AddVisibility="{Binding AddVisibility}"
+                                Confirm="{Binding Confirm}"
+                                Cancel="{Binding Cancel}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:DepositViewModel}">
+            <Views:DepositView/>
         </DataTemplate>
     </Window.Resources>
     <ContentPresenter Content="{Binding CurrentView}"/>
