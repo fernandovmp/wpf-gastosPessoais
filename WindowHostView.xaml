@@ -13,24 +13,10 @@
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type ViewModels:EditEntryViewModel}">
-            <Views:EditEntryView EntryName="{Binding EntryName}"
-                                 EntryGroup="{Binding EntryGroup}"
-                                 EntryValue="{Binding EntryValue}"
-                                 IsCredit="{Binding IsCredit}"
-                                 IsDebit="{Binding IsDebit}"
-                                 Confirm="{Binding Confirm}"
-                                 Cancel="{Binding Cancel}"
-                                 Checkbox="{Binding Checkbox}"
-                                 CheckboxVisibility="{Binding AddVisibility}"
-                                 />
+            <Views:EditEntryView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:EditGoalViewModel}">
-            <Views:EditGoalView GoalName="{Binding GoalName}"
-                                GoalSavedValue="{Binding GoalValue}"
-                                GoalValue="{Binding GoalValue}"
-                                AddVisibility="{Binding AddVisibility}"
-                                Confirm="{Binding Confirm}"
-                                Cancel="{Binding Cancel}"/>
+            <Views:EditGoalView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:DepositViewModel}">
             <Views:DepositView/>
