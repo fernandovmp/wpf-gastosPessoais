@@ -29,7 +29,7 @@
                 <Label Content="Nome..." VerticalContentAlignment="Center" FontStyle="Italic"/>
             </local:Watermark.Watermark>
         </TextBox>
-        <ComboBox Name="groupField"
+        <ComboBox ItemsSource="{Binding GroupSource}"
                   Text="{Binding EntryGroup}"
                   IsEditable="True"
                   Canvas.Left="320" Canvas.Top="38"

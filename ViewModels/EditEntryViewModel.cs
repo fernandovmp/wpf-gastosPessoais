@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,23 +21,32 @@ namespace wpf_gastosPessoais.ViewModels
             EntryName = entry.Name;
             EntryValue = entry.Value.ToString("F2");
             EntryGroup = entry.Group;
+            isCredit = entryControl.Entry.EntryType == EntryType.Credit ? true : false; 
             isEditMode = true;
+            groups = GetEntryGroups();
+            UpdateGroupSource();
         }
 
         public EditEntryViewModel(EntriesViewModel entriesViewModel)
         {
             this.entriesViewModel = entriesViewModel;
-            EntryName = "";
-            EntryValue = "";
-            EntryGroup = "";
             isCredit = true;
             isEditMode = false;
+            groups = GetEntryGroups();
+            UpdateGroupSource();
+        }
+
+        private ICollection<EntryGroup> GetEntryGroups()
+        {
+            return DatabaseManager.ReadAll<EntryGroup>();
         }
 
         private ICommand                    checkbox;
         private bool                        isCredit;
         private EntriesViewModel            entriesViewModel;
         private EntryControlViewModel       entryControl;
+        private ICollection<EntryGroup>     groups;
+        private ObservableCollection<EntryGroup> groupSource;
         public  string      EntryName { get; set; }
         public  string      EntryValue { get; set; }
         public  string      EntryGroup { get; set; }
@@ -66,11 +76,39 @@ namespace wpf_gastosPessoais.ViewModels
             }
             set => checkbox = value;
         }
+        public  ObservableCollection<EntryGroup> GroupSource
+        {
+            get => groupSource;
+            set
+            {
+                groupSource = value;
+                OnPropertyChanged("GroupSource");
+            }
+        }
 
         private void CheckIsCredit(object parameter)
         {
             isCredit = !isCredit;
+            UpdateGroupSource();
             OnPropertyChanged("IsCredit", "IsDebit");
+        }
+
+        private void UpdateGroupSource()
+        {
+            var source = from serie in groups
+                         where serie.Type == (IsCredit ? 1 : -1)
+                         select serie;
+            GroupSource = new ObservableCollection<EntryGroup>(source);
+            UpdateSelectedGroup();
+        }
+
+        private void UpdateSelectedGroup()
+        {
+            if (!GroupSource.ToList().Exists(x => x.Name == EntryGroup))
+            {
+                EntryGroup = GroupSource[0].Name;
+                OnPropertyChanged("EntryGroup");
+            }
         }
 
         protected override void AddCommand(object parameter)
@@ -83,7 +121,9 @@ namespace wpf_gastosPessoais.ViewModels
                 Value = value,
                 EntryType = isCredit ? EntryType.Credit : EntryType.Debit
             };
+            entry.Id = DatabaseManager.NextId(entry);
             entriesViewModel.AllEntries.Add(entry);
+            SaveEntryGroup();
             base.AddCommand(parameter);
         }
 
@@ -95,7 +135,21 @@ namespace wpf_gastosPessoais.ViewModels
             entryControl.Entry.Value = value;
             entryControl.SaveEdit();
             entryControl.NotifyEdit();
+            SaveEntryGroup();
             base.EditCommand(parameter);
         }
+
+        private void SaveEntryGroup()
+        {
+            if (!GroupSource.ToList().Exists(x => x.Name == EntryGroup))
+            {
+                DatabaseManager.Save(new EntryGroup
+                {
+                    Name = EntryGroup,
+                    Type = IsCredit ? 1 : -1
+                });
+            }
+        }
+
     }
 }

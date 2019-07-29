@@ -44,6 +44,7 @@ namespace wpf_gastosPessoais.ViewModels
                 Value = value,
                 SavedValue = savedValue
             };
+            goal.Id = DatabaseManager.NextId(goal);
             goalsViewModel.AllGoals.Add(goal);
             base.AddCommand(parameter);
         }

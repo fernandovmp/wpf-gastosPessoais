@@ -23,7 +23,13 @@ namespace wpf_gastosPessoais
             CreateDbFile();
             DatabaseManager.TryCreateTable(new Entry());
             DatabaseManager.TryCreateTable(new Goal());
-            DatabaseManager.TryCreateTable(new EntryGroup());
+            if(DatabaseManager.TryCreateTable(new EntryGroup()))
+            {
+                foreach (var item in EntryGroup.DefaultGroups())
+                {
+                    DatabaseManager.Save(item);
+                }
+            }
         }
 
         private void SetInitialAppConfig()
