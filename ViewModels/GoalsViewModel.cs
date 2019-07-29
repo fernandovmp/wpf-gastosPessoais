@@ -9,6 +9,7 @@ using wpf_gastosPessoais.Misc;
 using System.Windows;
 using System.Collections.Specialized;
 using Database;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -16,7 +17,8 @@ namespace wpf_gastosPessoais.ViewModels
     {
         public GoalsViewModel()
         {
-            goals = new TrulyObservableCollection<Goal>(DatabaseManager.ReadAll<Goal>());
+            repository = new GoalRepository();
+            goals = new TrulyObservableCollection<Goal>(repository.GetAll());
             goals.CollectionChanged += Goals_CollectionChanged;
             goalControls = new TrulyObservableCollection<GoalControlViewModel>();
             foreach (var item in goals)
@@ -25,6 +27,7 @@ namespace wpf_gastosPessoais.ViewModels
             }
         }
 
+        private GoalRepository repository;
         private ICommand addGoal;
         private TrulyObservableCollection<Goal> goals;
         private TrulyObservableCollection<GoalControlViewModel> goalControls;
@@ -87,7 +90,7 @@ namespace wpf_gastosPessoais.ViewModels
                     if (removed)
                     {
                         goalControls.Remove(goalControls.FirstOrDefault(x => x.Goal == goal));
-                        DatabaseManager.Delete<Goal>($"Id = {goal.Id}");
+                        repository.Delete(goal);
                     }
                 }
             }
@@ -96,7 +99,7 @@ namespace wpf_gastosPessoais.ViewModels
                 foreach (var item in e.NewItems)
                 {
                     AddGoalControlVM((Goal)item);
-                    DatabaseManager.Save((Goal)item);
+                    repository.Save((Goal)item);
                 }
             }
             OnPropertyChanged("FirstGoalVisibility", "GoalGridVisibility", "AllGoals");

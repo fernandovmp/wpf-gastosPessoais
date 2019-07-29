@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using wpf_gastosPessoais.Data;
 using wpf_gastosPessoais.Models;
 
 namespace wpf_gastosPessoais.ViewModels
@@ -38,13 +39,14 @@ namespace wpf_gastosPessoais.ViewModels
         {
             decimal.TryParse(GoalValue, out decimal value);
             decimal.TryParse(GoalSavedValue, out decimal savedValue);
+            GoalRepository repository = new GoalRepository();
             Goal goal = new Goal
             {
+                Id = repository.NextId++,
                 Name = GoalName,
                 Value = value,
                 SavedValue = savedValue
             };
-            goal.Id = DatabaseManager.NextId(goal);
             goalsViewModel.AllGoals.Add(goal);
             base.AddCommand(parameter);
         }

@@ -8,6 +8,7 @@ using wpf_gastosPessoais.Misc;
 using System.Windows.Input;
 using System.Windows;
 using Database;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -125,19 +126,19 @@ namespace wpf_gastosPessoais.ViewModels
                 DataContext = new DepositViewModel(this)
             };
             window.ShowDialog();
-            DatabaseManager.Update(Goal, $"Id = {Goal.Id}");
+            new GoalRepository().Update(Goal);
         }
 
         private void DoneCommand(object parameter)
         {
             Goal.Completed = true;
             OnPropertyChanged("NotCompletedVisibility");
-            DatabaseManager.Update(Goal, $"Id = {Goal.Id}");
+            new GoalRepository().Update(Goal);
         }
 
         public void SaveEdit()
         {
-            DatabaseManager.Update(Goal, $"Id = {Goal.Id}");
+            new GoalRepository().Update(Goal);
         }
 
         public void SetProgressText()
