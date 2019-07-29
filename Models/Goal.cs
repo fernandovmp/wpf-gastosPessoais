@@ -41,7 +41,14 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("SavedValue", "Progress", "IntProgress");
             }
         }
-        public float    Progress { get => (float)(SavedValue / Value); }
+        public float    Progress
+        {
+            get
+            {
+                if (Completed) return 1;
+                return (float)(SavedValue / Value);
+            }
+        }
         public int      IntProgress { get => (int)(Progress * 100); }
         [DBOption()]
         public bool     Completed
@@ -50,7 +57,7 @@ namespace wpf_gastosPessoais.Models
             set
             {
                 completed = value;
-                OnPropertyChanged("Completed");
+                OnPropertyChanged("Completed", "Progress", "ProgressText");
             }
         }
     }
