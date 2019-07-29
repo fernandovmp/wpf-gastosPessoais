@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace wpf_gastosPessoais.ViewModels
 {
     public class EditBaseViewModel : ViewModelBase
     {
-        protected ICommand confirm;
-        protected ICommand cancel;
-        protected bool isEditMode;
-        public ICommand Confirm
+        protected   ICommand    confirm;
+        protected   ICommand    cancel;
+        protected   bool        isEditMode;
+        public      ICommand    Confirm
         {
             get
             {
@@ -27,7 +22,7 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("Confirm");
             }
         }
-        public ICommand Cancel
+        public      ICommand    Cancel
         {
             get
             {
@@ -41,12 +36,12 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("Cancel");
             }
         }
-        public Visibility AddVisibility
+        public      Visibility  AddVisibility
         {
             get => !isEditMode ? Visibility.Visible : Visibility.Collapsed;
             
         }
-        private ICommand SelectCommand()
+        private     ICommand    SelectCommand()
         {
             if (isEditMode)
                 return new RelayCommand(EditCommand);

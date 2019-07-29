@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wpf_gastosPessoais.Models;
+﻿using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Misc;
 using System.Windows.Input;
 using System.Windows;
-using Database;
 using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels

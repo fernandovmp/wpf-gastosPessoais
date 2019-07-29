@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace wpf_gastosPessoais.ViewModels
+﻿namespace wpf_gastosPessoais.ViewModels
 {
     public class DepositViewModel : EditBaseViewModel
     {
@@ -14,8 +8,8 @@ namespace wpf_gastosPessoais.ViewModels
             isEditMode = true;
         }
 
-        private GoalControlViewModel goalControl;
-        public string DepositValue { get; set; }
+        private GoalControlViewModel    goalControl;
+        public  string                  DepositValue { get; set; }
 
         protected override void EditCommand(object parameter)
         {

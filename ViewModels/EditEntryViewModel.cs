@@ -1,11 +1,6 @@
-﻿using Database;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Data;
@@ -37,16 +32,16 @@ namespace wpf_gastosPessoais.ViewModels
             UpdateGroupSource();
         }
 
-        private ICommand                    checkbox;
-        private bool                        isCredit;
-        private EntriesViewModel            entriesViewModel;
-        private EntryControlViewModel       entryControl;
-        private ICollection<EntryGroup>     groups;
-        private ObservableCollection<EntryGroup> groupSource;
-        public  string      EntryName { get; set; }
-        public  string      EntryValue { get; set; }
-        public  string      EntryGroup { get; set; }
-        public  bool        IsCredit
+        private ICommand                            checkbox;
+        private bool                                isCredit;
+        private EntriesViewModel                    entriesViewModel;
+        private EntryControlViewModel               entryControl;
+        private ICollection<EntryGroup>             groups;
+        private ObservableCollection<EntryGroup>    groupSource;
+        public  string                              EntryName { get; set; }
+        public  string                              EntryValue { get; set; }
+        public  string                              EntryGroup { get; set; }
+        public  bool                                IsCredit
         {
             get => isCredit;
             set
@@ -54,7 +49,7 @@ namespace wpf_gastosPessoais.ViewModels
 
             }
         }
-        public  bool        IsDebit
+        public  bool                                IsDebit
         {
             get => !isCredit;
             set
@@ -62,7 +57,7 @@ namespace wpf_gastosPessoais.ViewModels
 
             }
         }
-        public  ICommand    Checkbox
+        public  ICommand                            Checkbox
         {
             get
             {
@@ -72,7 +67,7 @@ namespace wpf_gastosPessoais.ViewModels
             }
             set => checkbox = value;
         }
-        public  ObservableCollection<EntryGroup> GroupSource
+        public  ObservableCollection<EntryGroup>    GroupSource
         {
             get => groupSource;
             set

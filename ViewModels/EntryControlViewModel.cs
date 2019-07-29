@@ -1,14 +1,6 @@
-﻿using Database;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using wpf_gastosPessoais;
 using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Misc;
 using wpf_gastosPessoais.Data;

@@ -27,11 +27,11 @@ namespace wpf_gastosPessoais.ViewModels
             }
         }
 
-        private GoalRepository repository;
-        private ICommand addGoal;
-        private TrulyObservableCollection<Goal> goals;
+        private GoalRepository                                  repository;
+        private ICommand                                        addGoal;
+        private TrulyObservableCollection<Goal>                 goals;
         private TrulyObservableCollection<GoalControlViewModel> goalControls;
-        public TrulyObservableCollection<Goal> AllGoals
+        public  TrulyObservableCollection<Goal>                 AllGoals
         {
             get => goals;
             set
@@ -40,7 +40,7 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("AllGoals");
             }
         }
-        public TrulyObservableCollection<GoalControlViewModel> AllGoalsControls
+        public  TrulyObservableCollection<GoalControlViewModel> AllGoalsControls
         {
             get => goalControls;
             set
@@ -49,21 +49,21 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("AllGoalsControls");
             }
         }
-        public Visibility GoalGridVisibility
+        public  Visibility                                      GoalGridVisibility
         {
             get
             {
                 return goals.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-        public Visibility FirstGoalVisibility
+        public  Visibility                                      FirstGoalVisibility
         {
             get
             {
                 return goals.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-        public ICommand AddGoal
+        public  ICommand                                        AddGoal
         {
             get
             {

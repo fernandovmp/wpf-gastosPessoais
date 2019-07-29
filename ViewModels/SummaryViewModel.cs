@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using LiveCharts;
 using LiveCharts.Wpf;
 using wpf_gastosPessoais.Models;
@@ -20,12 +16,12 @@ namespace wpf_gastosPessoais.ViewModels
             
         }
 
-        private TrulyObservableCollection<Entry> entries;
-        private SeriesCollection spentDistribution;
-        private decimal balance;
-        private decimal income;
-        private decimal spents;
-        public  SeriesCollection SpentDistribution
+        private TrulyObservableCollection<Entry>    entries;
+        private SeriesCollection                    spentDistribution;
+        private decimal                             balance;
+        private decimal                             income;
+        private decimal                             spents;
+        public  SeriesCollection                    SpentDistribution
         {
             get => spentDistribution;
             set
@@ -34,7 +30,7 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("SpentDistribution");
             }
         }
-        public TrulyObservableCollection<Entry> Entries
+        public  TrulyObservableCollection<Entry>    Entries
         {
             get => entries;
             set
@@ -45,19 +41,19 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("Entries");
             }
         }
-        public  string Balance
+        public  string                              Balance
         {
             get => $"Saldo: R$ {balance.ToString("F2")}";
         }
-        public  string Income
+        public  string                              Income
         {
             get => $"Receita: R$ {income.ToString("F2")}";
         }
-        public  string Spents
+        public  string                              Spents
         {
             get => $"Despesas: R$ {spents.ToString("F2")}";
         }
-        public  Visibility NoneSpentsVisibility
+        public  Visibility                          NoneSpentsVisibility
         {
             get
             {
