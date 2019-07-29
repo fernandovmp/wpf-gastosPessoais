@@ -10,6 +10,7 @@ using System.Windows;
 using System.Collections.Specialized;
 using System.Windows.Input;
 using wpf_gastosPessoais.Misc;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -18,7 +19,8 @@ namespace wpf_gastosPessoais.ViewModels
 
         public EntriesViewModel()
         {
-            entries = new TrulyObservableCollection<Entry>(DatabaseManager.ReadAll<Entry>());
+            repository = new EntryRepository();
+            entries = new TrulyObservableCollection<Entry>(repository.GetAll());
             entries.CollectionChanged += Entries_CollectionChanged;
             entryControls = new ObservableCollection<EntryControlViewModel>();
             foreach (var item in entries)
@@ -28,6 +30,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         }
 
+        private EntryRepository                                 repository;
         private ICommand                                        addEntry;
         private TrulyObservableCollection<Entry>                entries;
         private ObservableCollection<EntryControlViewModel>     entryControls;
@@ -80,7 +83,7 @@ namespace wpf_gastosPessoais.ViewModels
                     if (removed)
                     {
                         entryControls.Remove(entryControls.FirstOrDefault(x => x.Entry == entry));
-                        DatabaseManager.Delete<Entry>($"Id = {entry.Id}");
+                        repository.Delete(entry);
                     }
                 }
             }
@@ -89,7 +92,7 @@ namespace wpf_gastosPessoais.ViewModels
                 foreach (var item in e.NewItems)
                 {
                     AddEntryControlVM((Entry)item);
-                    DatabaseManager.Save((Entry)item);
+                    repository.Save((Entry)item);
                 }
             }
             OnPropertyChanged("FirstEntryVisibility", "EntryGridVisibility", "AllEntries");

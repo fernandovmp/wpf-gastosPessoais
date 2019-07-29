@@ -11,6 +11,7 @@ using System.Windows.Media;
 using wpf_gastosPessoais;
 using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Misc;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -83,7 +84,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         public void SaveEdit()
         {
-            DatabaseManager.Update(Entry, $"Id = {Entry.Id}");
+            new EntryRepository().Update(Entry);
         }
 
         public void NotifyEdit()

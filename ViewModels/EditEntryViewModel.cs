@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using wpf_gastosPessoais.Models;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -114,14 +115,15 @@ namespace wpf_gastosPessoais.ViewModels
         protected override void AddCommand(object parameter)
         {
             decimal.TryParse(EntryValue, out decimal value);
+            EntryRepository repository = new EntryRepository();
             Entry entry = new Entry
             {
+                Id = repository.NextId++,
                 Name = EntryName,
                 Group = EntryGroup,
                 Value = value,
                 EntryType = isCredit ? EntryType.Credit : EntryType.Debit
             };
-            entry.Id = DatabaseManager.NextId(entry);
             entriesViewModel.AllEntries.Add(entry);
             SaveEntryGroup();
             base.AddCommand(parameter);
