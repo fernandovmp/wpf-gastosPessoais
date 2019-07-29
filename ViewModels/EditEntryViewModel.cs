@@ -37,11 +37,6 @@ namespace wpf_gastosPessoais.ViewModels
             UpdateGroupSource();
         }
 
-        private ICollection<EntryGroup> GetEntryGroups()
-        {
-            return DatabaseManager.ReadAll<EntryGroup>();
-        }
-
         private ICommand                    checkbox;
         private bool                        isCredit;
         private EntriesViewModel            entriesViewModel;
@@ -92,6 +87,11 @@ namespace wpf_gastosPessoais.ViewModels
             isCredit = !isCredit;
             UpdateGroupSource();
             OnPropertyChanged("IsCredit", "IsDebit");
+        }
+
+        private ICollection<EntryGroup> GetEntryGroups()
+        {
+            return new EntryGroupRepository().GetAll();
         }
 
         private void UpdateGroupSource()
@@ -145,7 +145,7 @@ namespace wpf_gastosPessoais.ViewModels
         {
             if (!GroupSource.ToList().Exists(x => x.Name == EntryGroup))
             {
-                DatabaseManager.Save(new EntryGroup
+                new EntryGroupRepository().Save(new EntryGroup
                 {
                     Name = EntryGroup,
                     Type = IsCredit ? 1 : -1

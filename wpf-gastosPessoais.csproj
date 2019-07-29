@@ -74,7 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\EntryGroupRepository.cs" />
     <Compile Include="Data\EntryRepository.cs" />
+    <Compile Include="Data\GoalRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Misc\ICollectionItemPropertyChanged.cs" />
