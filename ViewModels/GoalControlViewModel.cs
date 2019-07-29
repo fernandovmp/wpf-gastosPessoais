@@ -125,6 +125,7 @@ namespace wpf_gastosPessoais.ViewModels
         private void DoneCommand(object parameter)
         {
             Goal.Completed = true;
+            SetProgressText();
             OnPropertyChanged("NotCompletedVisibility");
             new GoalRepository().Update(Goal);
         }
