@@ -84,10 +84,10 @@
                 </Viewbox>
             </Button.Content>
             <Button.ContextMenu>
-                <ContextMenu Placement="Top">
-                    <MenuItem Header="Lançamento" 
+                <ContextMenu Placement="Left" Style="{StaticResource ResourceKey=ContextMenuStyle}">
+                    <MenuItem Header="Lançamento" Foreground="WhiteSmoke" FontSize="12"
                               Command="{Binding Source={x:Reference Name=entryView}, Path=DataContext.AddEntry}"/>
-                    <MenuItem Header="Objetivo" 
+                    <MenuItem Header="Objetivo" Foreground="WhiteSmoke" FontSize="12"
                               Command="{Binding Source={x:Reference Name=goalView}, Path=DataContext.AddGoal}"/>
                 </ContextMenu>
             </Button.ContextMenu>
