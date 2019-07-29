@@ -101,11 +101,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void EditCommand(object parameter)
         {
-            WindowHostView window = new WindowHostView
-            {
-                DataContext = new EditGoalViewModel(this)
-            };
-            window.ShowDialog();
+            new WindowHost().ShowDialog(new EditGoalViewModel(this));
         }
 
         private void DeleteCommand(object parameter)
@@ -121,11 +117,8 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void DepositCommand(object parameter)
         {
-            WindowHostView window = new WindowHostView
-            {
-                DataContext = new DepositViewModel(this)
-            };
-            window.ShowDialog();
+
+            new WindowHost().ShowDialog(new DepositViewModel(this));
             new GoalRepository().Update(Goal);
         }
 

@@ -112,11 +112,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void AddGoalCommand(object parameter)
         {
-            WindowHostView window = new WindowHostView
-            {
-                DataContext = new EditGoalViewModel(this)
-            };
-            window.ShowDialog();
+            new WindowHost().ShowDialog(new EditGoalViewModel(this));
         }
 
     }

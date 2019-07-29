@@ -108,11 +108,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void AddEntryCommand(object parameter)
         {
-            WindowHostView window = new WindowHostView
-            {
-                DataContext = new EditEntryViewModel(this)
-            };
-            window.ShowDialog();
+            new WindowHost().ShowDialog(new EditEntryViewModel(this));
         }
 
     }
