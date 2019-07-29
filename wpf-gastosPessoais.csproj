@@ -51,6 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files (x86)\Microsoft SQL Server Compact Edition\v4.0\Desktop\System.Data.SqlServerCe.dll</HintPath>
@@ -81,8 +82,10 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Misc\ICollectionItemPropertyChanged.cs" />
     <Compile Include="Misc\ItemChangedEventArgs.cs" />
+    <Compile Include="Misc\IWindowHost.cs" />
     <Compile Include="Misc\NotifyPropertyChanged.cs" />
     <Compile Include="Misc\TrulyObservableCollection.cs" />
+    <Compile Include="Misc\WindowHost.cs" />
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\EntryGroup.cs" />
     <Compile Include="Models\Goal.cs" />
