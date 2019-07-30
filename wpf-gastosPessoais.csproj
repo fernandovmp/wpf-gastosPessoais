@@ -75,6 +75,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\NumericTextBoxBehavior.cs" />
     <Compile Include="Data\EntryGroupRepository.cs" />
     <Compile Include="Data\EntryRepository.cs" />
     <Compile Include="Data\GoalRepository.cs" />
