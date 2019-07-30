@@ -21,11 +21,11 @@
             >
         <StackPanel Orientation="Horizontal">
             <TextBlock Name="nameInfo"
-                       Text="{Binding EntryName}"
+                       Text="{Binding Entry.Name}"
                        Width="200" Height="30" Margin="2.5, 2.5, 5, 2.5" 
                        Foreground="White"/>
             <TextBlock Name="valueInfo"
-                       Text="{Binding EntryValue}"
+                       Text="{Binding Entry.Value, StringFormat='R$ {0:F2}'}"
                        TextAlignment="Center"
                        Width="200" Height="30" Margin="2.5, 2.5, 5, 2.5" 
                        Foreground="{Binding ValueForeground}"/>
@@ -34,7 +34,7 @@
                        Width="100" Height="30" Margin="2.5, 2.5, 5, 2.5" 
                        Foreground="{Binding ValueForeground}"/>
             <TextBlock Name="groupInfo" 
-                       Text="{Binding EntryGroup}"
+                       Text="{Binding Entry.Group}"
                        Width="150" Height="30" Margin="2.5, 2.5, 5, 2.5" 
                        Foreground="White"/>
         </StackPanel>

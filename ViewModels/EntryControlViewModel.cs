@@ -19,9 +19,6 @@ namespace wpf_gastosPessoais.ViewModels
         private ICommand        deleteEntry;
         private ICommand        editEntry;
         public  Entry           Entry { get; set; }
-        public  string          EntryName { get => Entry.Name; }
-        public  string          EntryValue { get => $"R$ {Entry.Value.ToString("F2")}"; }
-        public  string          EntryGroup { get => Entry.Group; }
         public  string          TypeOfEntry { get => Entry.EntryType.GetString(); }
         public  Brush           ValueForeground
         {
@@ -73,11 +70,6 @@ namespace wpf_gastosPessoais.ViewModels
         public void SaveEdit()
         {
             new EntryRepository().Update(Entry);
-        }
-
-        public void NotifyEdit()
-        {
-            OnPropertyChanged("EntryName", "EntryValue", "EntryGroup");
         }
 
     }

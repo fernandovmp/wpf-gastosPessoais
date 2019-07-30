@@ -131,7 +131,6 @@ namespace wpf_gastosPessoais.ViewModels
             entryControl.Entry.Group = EntryGroup;
             entryControl.Entry.Value = value;
             entryControl.SaveEdit();
-            entryControl.NotifyEdit();
             SaveEntryGroup();
             base.EditCommand(parameter);
         }
