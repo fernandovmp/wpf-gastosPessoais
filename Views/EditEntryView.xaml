@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_gastosPessoais.Views"
         mc:Ignorable="d"
-        Height="200" Width="500"
+        Height="170" Width="500"
         Background="#FF1E1E1E"
         >
 
