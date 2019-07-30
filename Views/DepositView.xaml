@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:wpf_gastosPessoais.Views"
              xmlns:ViewModels="clr-namespace:wpf_gastosPessoais.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="clr-namespace:wpf_gastosPessoais.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Height="80" Width="500"
@@ -27,6 +29,9 @@
                  Background="White" BorderBrush="Black" 
                  Canvas.Left="10" Canvas.Top="30" Width="225"
                  >
+            <i:Interaction.Behaviors>
+                <b:NumericTextBoxBehavior InputMode="Decimal" OnlyPositiveNumbers="True"/>
+            </i:Interaction.Behaviors>
             <local:Watermark.Watermark>
                 <Label Content="R$" VerticalContentAlignment="Center" FontStyle="Italic"/>
             </local:Watermark.Watermark>
