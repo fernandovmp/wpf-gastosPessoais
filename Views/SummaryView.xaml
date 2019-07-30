@@ -23,7 +23,7 @@
                />
         <StackPanel>
             <StackPanel>
-                <TextBlock Text="{Binding Balance, Mode=OneWay}"
+                <TextBlock Text="{Binding Balance, StringFormat='Saldo: R$ {0:F2}', Mode=OneWay}"
                  VerticalAlignment="Top"
                  TextAlignment="Center"
                  FontSize="20"
@@ -32,12 +32,13 @@
                  Background="{x:Null}"
                  />
                 <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Center">
-                    <Label Content="{Binding Income}" 
-                           FontSize="18"
-                           HorizontalContentAlignment="Center" Foreground="LimeGreen"/>
-                    <Label Content="{Binding Spents}" 
-                           FontSize="18"
-                           HorizontalContentAlignment="Center" Foreground="Red"/>
+                    <TextBlock Text="{Binding Income, StringFormat='Receita: R$ {0:F2}'}" 
+                               FontSize="18"
+                               TextAlignment="Center" Foreground="LimeGreen"/>
+                    <Label Width="5"/>
+                    <TextBlock Text="{Binding Spents, StringFormat='Despesas: R$ {0:F2}'}" 
+                               FontSize="18"
+                               TextAlignment="Center" Foreground="Red"/>
                 </StackPanel>
             </StackPanel>
             <LiveChart:PieChart Height="250"

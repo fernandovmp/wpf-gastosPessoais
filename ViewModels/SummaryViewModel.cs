@@ -41,17 +41,32 @@ namespace wpf_gastosPessoais.ViewModels
                 OnPropertyChanged("Entries");
             }
         }
-        public  string                              Balance
+        public  decimal                             Balance
         {
-            get => $"Saldo: R$ {balance.ToString("F2")}";
+            get => balance;
+            set
+            {
+                balance = value;
+                OnPropertyChanged("Balance");
+            }
         }
-        public  string                              Income
+        public  decimal                             Income
         {
-            get => $"Receita: R$ {income.ToString("F2")}";
+            get => income;
+            set
+            {
+                income = value;
+                OnPropertyChanged("Income");
+            }
         }
-        public  string                              Spents
+        public  decimal                             Spents
         {
-            get => $"Despesas: R$ {spents.ToString("F2")}";
+            get => spents;
+            set
+            {
+                spents = value;
+                OnPropertyChanged("Spents");
+            }
         }
         public  Visibility                          NoneSpentsVisibility
         {
@@ -94,18 +109,17 @@ namespace wpf_gastosPessoais.ViewModels
 
         private void UpdateBalance()
         {
-            balance = income = spents = 0;
+            Balance = Income = Spents = 0;
             foreach (var entry in Entries)
             {
-                balance += entry.SignedValue;
+                Balance += entry.SignedValue;
                 if(entry.EntryType == EntryType.Credit)
                 {
-                    income += entry.Value;
+                    Income += entry.Value;
                     continue;
                 }
-                spents += entry.Value;
+                Spents += entry.Value;
             }
-            OnPropertyChanged("Balance", "Income", "Spents");
         }
 
     }
