@@ -16,7 +16,6 @@
             decimal.TryParse(DepositValue, out decimal value);
             goalControl.Goal.SavedValue += value;
             goalControl.SaveEdit();
-            goalControl.SetProgressText();
             base.EditCommand(parameter);
         }
     }

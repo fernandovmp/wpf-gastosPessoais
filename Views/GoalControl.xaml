@@ -77,7 +77,25 @@
                 <TextBlock Foreground="Black" 
                            FontSize="16"
                            HorizontalAlignment="Center"
-                           Text="{Binding ProgressText}" Height="20"/>
+                           Height="20">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding StringFormat="R$ {0:F2}/R$ {1:F2}">
+                                        <Binding Path="Goal.SavedValue"/>
+                                        <Binding Path="Goal.Value"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Goal.Completed}" Value="true">
+                                    <Setter Property="Text" Value="Alcançado"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
             <Button Command="{Binding Done}"
                     Visibility="{Binding NotCompletedVisibility}"

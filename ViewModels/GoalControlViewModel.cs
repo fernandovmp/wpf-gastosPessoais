@@ -13,7 +13,6 @@ namespace wpf_gastosPessoais.ViewModels
         {
             this.goals = goals;
             Goal = goal;
-            SetProgressText();
         }
 
         private TrulyObservableCollection<Goal> goals;
@@ -21,17 +20,7 @@ namespace wpf_gastosPessoais.ViewModels
         private ICommand            deleteGoal;
         private ICommand            deposit;
         private ICommand            done;
-        private string              progressText;
         public  Goal                Goal { get; set; }
-        public  string              ProgressText
-        {
-            get => progressText;
-            set
-            {
-                progressText = value;
-                OnPropertyChanged("ProgressText");
-            }
-        }
         public  ICommand            EditGoal
         {
             get
@@ -119,7 +108,6 @@ namespace wpf_gastosPessoais.ViewModels
         private void DoneCommand(object parameter)
         {
             Goal.Completed = true;
-            SetProgressText();
             OnPropertyChanged("NotCompletedVisibility");
             new GoalRepository().Update(Goal);
         }
@@ -127,16 +115,6 @@ namespace wpf_gastosPessoais.ViewModels
         public void SaveEdit()
         {
             new GoalRepository().Update(Goal);
-        }
-
-        public void SetProgressText()
-        {
-            if (Goal.Completed)
-            {
-                ProgressText = "Alcançado";
-                return;
-            }
-            ProgressText = $"{Goal.SavedValue.ToString("F2")}/{Goal.Value.ToString("F2")}";
         }
     }
 }

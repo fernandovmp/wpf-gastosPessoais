@@ -5,14 +5,14 @@ namespace wpf_gastosPessoais.Models
 {
     public class Goal : NotifyPropertyChanged
     {
-        private string name;
-        private decimal value;
-        private decimal savedValue;
-        private bool completed;
+        private string   name;
+        private decimal  value;
+        private decimal  savedValue;
+        private bool     completed;
         [DBOption(AutoIncrement = true, PrimaryKey = true)]
-        public int      Id { get; set; }
+        public  int      Id { get; set; }
         [DBOption()]
-        public string   Name
+        public  string   Name
         {
             get => name;
             set
@@ -22,7 +22,7 @@ namespace wpf_gastosPessoais.Models
             }
         }
         [DBOption()]
-        public decimal  Value
+        public  decimal  Value
         {
             get => value;
             set
@@ -32,7 +32,7 @@ namespace wpf_gastosPessoais.Models
             }
         }
         [DBOption()]
-        public decimal  SavedValue
+        public  decimal  SavedValue
         {
             get => savedValue;
             set
@@ -41,7 +41,7 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("SavedValue", "Progress", "IntProgress");
             }
         }
-        public float    Progress
+        public  float    Progress
         {
             get
             {
@@ -49,15 +49,15 @@ namespace wpf_gastosPessoais.Models
                 return (float)(SavedValue / Value);
             }
         }
-        public int      IntProgress { get => (int)(Progress * 100); }
+        public  int      IntProgress { get => (int)(Progress * 100); }
         [DBOption()]
-        public bool     Completed
+        public  bool     Completed
         {
             get => completed;
             set
             {
                 completed = value;
-                OnPropertyChanged("Completed", "Progress", "ProgressText");
+                OnPropertyChanged("Completed", "Progress", "IntProgress");
             }
         }
     }

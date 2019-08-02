@@ -51,7 +51,6 @@ namespace wpf_gastosPessoais.ViewModels
             goalControl.Goal.Name = GoalName;
             goalControl.Goal.Value = value;
             goalControl.SaveEdit();
-            goalControl.SetProgressText();
             base.EditCommand(parameter);
         }
     }
