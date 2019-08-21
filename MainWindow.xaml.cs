@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using System.IO;
-using Database;
-using System.Configuration;
-using System.Data.SqlServerCe;
+﻿using System.Windows;
 
 namespace wpf_gastosPessoais
 {

@@ -8,7 +8,6 @@ using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Misc;
 using System.Windows;
 using System.Collections.Specialized;
-using Database;
 using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais.ViewModels

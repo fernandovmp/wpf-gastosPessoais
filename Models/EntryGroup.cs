@@ -1,6 +1,4 @@
-﻿using Database;
-
-namespace wpf_gastosPessoais.Models
+﻿namespace wpf_gastosPessoais.Models
 {
     public struct EntryGroup
     {

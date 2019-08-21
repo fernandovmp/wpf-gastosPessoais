@@ -1,5 +1,4 @@
-﻿using Database;
-using wpf_gastosPessoais.Misc;
+﻿using wpf_gastosPessoais.Misc;
 
 namespace wpf_gastosPessoais.Models
 {
