@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using wpf_gastosPessoais.Models;
 using wpf_gastosPessoais.Data;
+using System.Threading.Tasks;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -17,9 +18,14 @@ namespace wpf_gastosPessoais.ViewModels
             EntryName = entry.Name;
             EntryValue = entry.Value.ToString("F2");
             EntryGroup = entry.Group;
-            isCredit = entryControl.Entry.EntryType == EntryType.Credit ? true : false; 
+            isCredit = entryControl.Entry.EntryType == EntryType.Credit ? true : false;
             isEditMode = true;
-            groups = GetEntryGroups();
+            GetGroupsAsync();
+        }
+
+        private async void GetGroupsAsync()
+        {
+            groups = await GetEntryGroups();
             UpdateGroupSource();
         }
 
@@ -28,8 +34,7 @@ namespace wpf_gastosPessoais.ViewModels
             this.entriesViewModel = entriesViewModel;
             isCredit = true;
             isEditMode = false;
-            groups = GetEntryGroups();
-            UpdateGroupSource();
+            GetGroupsAsync();
         }
 
         private ICommand                            checkbox;
@@ -84,9 +89,9 @@ namespace wpf_gastosPessoais.ViewModels
             OnPropertyChanged("IsCredit", "IsDebit");
         }
 
-        private ICollection<EntryGroup> GetEntryGroups()
+        private async Task<ICollection<EntryGroup>> GetEntryGroups()
         {
-            return new EntryGroupRepository().GetAll();
+            return await new EntryGroupRepository().GetAll();
         }
 
         private void UpdateGroupSource()

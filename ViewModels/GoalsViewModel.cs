@@ -17,14 +17,7 @@ namespace wpf_gastosPessoais.ViewModels
     {
         public GoalsViewModel()
         {
-            repository = new GoalRepository();
-            goals = new TrulyObservableCollection<Goal>(repository.GetAll());
-            goals.CollectionChanged += Goals_CollectionChanged;
-            goalControls = new TrulyObservableCollection<GoalControlViewModel>();
-            foreach (var item in goals)
-            {
-                AddGoalControlVM(item);
-            }
+            IntializeCollectionsAsync();
         }
 
         private GoalRepository                                  repository;
@@ -75,6 +68,28 @@ namespace wpf_gastosPessoais.ViewModels
             {
                 addGoal = value;
                 OnPropertyChanged("AddGoal");
+            }
+        }
+
+        private async void IntializeCollectionsAsync()
+        {
+            await InitializeGoals();
+            InitializeGoalControls();
+        }
+
+        private async Task InitializeGoals()
+        {
+            repository = new GoalRepository();
+            goals = new TrulyObservableCollection<Goal>(await repository.GetAll());
+            goals.CollectionChanged += Goals_CollectionChanged;
+        }
+
+        private void InitializeGoalControls()
+        {
+            goalControls = new TrulyObservableCollection<GoalControlViewModel>();
+            foreach (var item in goals)
+            {
+                AddGoalControlVM(item);
             }
         }
 

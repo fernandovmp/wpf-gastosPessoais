@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Windows.Input;
 using wpf_gastosPessoais.Misc;
 using wpf_gastosPessoais.Data;
+using System.Threading.Tasks;
 
 namespace wpf_gastosPessoais.ViewModels
 {
@@ -14,15 +15,7 @@ namespace wpf_gastosPessoais.ViewModels
 
         public EntriesViewModel()
         {
-            repository = new EntryRepository();
-            entries = new TrulyObservableCollection<Entry>(repository.GetAll());
-            entries.CollectionChanged += Entries_CollectionChanged;
-            entryControls = new ObservableCollection<EntryControlViewModel>();
-            foreach (var item in entries)
-            {
-                AddEntryControlVM(item);
-            }
-
+            InitializeCollections();
         }
 
         private EntryRepository                                 repository;
@@ -64,6 +57,28 @@ namespace wpf_gastosPessoais.ViewModels
                 return addEntry;
             }
             set => addEntry = value;
+        }
+
+        private async void InitializeCollections()
+        {
+            await IntializeEntries();
+            InitializeEntryControls();
+        }
+
+        private async Task IntializeEntries()
+        {
+            repository = new EntryRepository();
+            entries = new TrulyObservableCollection<Entry>(await repository.GetAll());
+            entries.CollectionChanged += Entries_CollectionChanged;
+        }
+
+        private void InitializeEntryControls()
+        {
+            entryControls = new ObservableCollection<EntryControlViewModel>();
+            foreach (var item in entries)
+            {
+                AddEntryControlVM(item);
+            }
         }
 
         private void Entries_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
