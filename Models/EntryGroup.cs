@@ -4,11 +4,8 @@ namespace wpf_gastosPessoais.Models
 {
     public struct EntryGroup
     {
-        [DBOption(AutoIncrement = true, PrimaryKey = true)]
         public int Id { get; set; }
-        [DBOption(ColumnName = "Name")]
         public string Name { get; set; }
-        [DBOption(ColumnName = "Type")]
         public int Type { get; set; }
 
         public override string ToString()

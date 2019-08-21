@@ -9,9 +9,7 @@ namespace wpf_gastosPessoais.Models
         private string      name;
         private decimal     value;
         private string      group;
-        [DBOption(AutoIncrement = true, PrimaryKey = true)]
         public int Id { get; set; }
-        [DBOption(ColumnName = "Name")]
         public string       Name
         {
             get => name;
@@ -21,9 +19,7 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("Name");
             }
         }
-        [DBOption(ColumnName = "Type", DataType = "Int32")]
         public EntryType    EntryType { get; set; }
-        [DBOption(ColumnName = "Value")]
         public decimal      Value
         {
             get => value;
@@ -33,7 +29,6 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("Value");
             }
         }
-        [DBOption(ColumnName = "EntryGroup")]
         public string       Group
         {
             get => group;
@@ -43,7 +38,6 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("Group");
             }
         }
-        [DBOption(ColumnName = "Editable")]
         public bool         Editable { get; set; }
         public decimal      SignedValue
         {

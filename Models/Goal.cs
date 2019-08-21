@@ -9,9 +9,7 @@ namespace wpf_gastosPessoais.Models
         private decimal  value;
         private decimal  savedValue;
         private bool     completed;
-        [DBOption(AutoIncrement = true, PrimaryKey = true)]
         public  int      Id { get; set; }
-        [DBOption()]
         public  string   Name
         {
             get => name;
@@ -21,7 +19,6 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("Name");
             }
         }
-        [DBOption()]
         public  decimal  Value
         {
             get => value;
@@ -31,7 +28,6 @@ namespace wpf_gastosPessoais.Models
                 OnPropertyChanged("Value", "Progress", "IntProgress");
             }
         }
-        [DBOption()]
         public  decimal  SavedValue
         {
             get => savedValue;
@@ -50,7 +46,6 @@ namespace wpf_gastosPessoais.Models
             }
         }
         public  int      IntProgress { get => (int)(Progress * 100); }
-        [DBOption()]
         public  bool     Completed
         {
             get => completed;
