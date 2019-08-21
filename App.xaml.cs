@@ -8,7 +8,7 @@ using System.Windows;
 using System.Data.SqlServerCe;
 using System.IO;
 using wpf_gastosPessoais.Models;
-using Database;
+using wpf_gastosPessoais.Data;
 
 namespace wpf_gastosPessoais
 {
@@ -17,17 +17,60 @@ namespace wpf_gastosPessoais
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             SetInitialAppConfig();
             CreateDbFile();
-            DatabaseManager.TryCreateTable(new Entry());
-            DatabaseManager.TryCreateTable(new Goal());
-            if(DatabaseManager.TryCreateTable(new EntryGroup()))
+            await StartDatabase();
+        }
+
+        private async Task StartDatabase()
+        {
+            SqlServerCeManager.OpenConnection(ConfigurationManager.AppSettings.Get("SQLConnection"));
+            SqlServerCeManager database = new SqlServerCeManager();
+            await CreateEntriesTable(database);
+            await CreateGoalsTable(database);
+            await CreateEntryGroupsTable(database);
+        }
+
+        private async Task CreateEntriesTable(SqlServerCeManager database)
+        {
+            var fields = new List<string>();
+            var primaryKeys = new List<string>();
+            fields.Add("Name nvarchar (50)");
+            fields.Add("Value decimal (9, 2)");
+            fields.Add("EntryGroup nvarchar (50)");
+            fields.Add("Editable bit");
+            fields.Add("Type int");
+            primaryKeys.Add("Id int identity");
+            await database.TryCreateTable("Entries", fields, primaryKeys);
+        }
+
+        private async Task CreateGoalsTable(SqlServerCeManager database)
+        {
+            var fields = new List<string>();
+            var primaryKeys = new List<string>();
+            fields.Add("Name nvarchar (50)");
+            fields.Add("Value decimal (9, 2)");
+            fields.Add("SavedValue decimal (9, 2)");
+            fields.Add("Completed bit");
+            primaryKeys.Add("Id int identity");
+            await database.TryCreateTable("Goals", fields, primaryKeys);
+        }
+
+        private async Task CreateEntryGroupsTable(SqlServerCeManager database)
+        {
+            var fields = new List<string>();
+            var primaryKeys = new List<string>();
+            fields.Add("Name nvarchar (50)");
+            fields.Add("Type int");
+            primaryKeys.Add("Id int identity");
+            if (await database.TryCreateTable("Goals", fields, primaryKeys))
             {
+                var repository = new EntryGroupRepository();
                 foreach (var item in EntryGroup.DefaultGroups())
                 {
-                    DatabaseManager.Save(item);
+                    repository.Save(item);
                 }
             }
         }
