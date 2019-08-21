@@ -80,6 +80,7 @@
     <Compile Include="Data\EntryRepository.cs" />
     <Compile Include="Data\GoalRepository.cs" />
     <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\SqlServerCeManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Misc\ICollectionItemPropertyChanged.cs" />
     <Compile Include="Misc\ItemChangedEventArgs.cs" />
