@@ -19,6 +19,23 @@ namespace wpf_gastosPessoais.Data
             dbConnection.Open();
         }
 
+        public async Task<bool> TryCreateTable(string tableName, IEnumerable<string> fields, 
+            IEnumerable<string> primaryKeys)
+        {
+            if (await TableExists(tableName)) return false;
+            string querry = CreateTable(tableName, fields, primaryKeys);
+            ExecuteQuerryAsync(querry);
+            return true;
+        }
+
+        private async Task<bool> TableExists(string tableName)
+        {
+            string querry = $"select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '{tableName}'";
+            IDataReader reader = await ExecuteReaderAsync(querry);
+            if (reader != null) return true;
+            return false;
+        }
+
         public string CreateTable(string name, IEnumerable<string> fields, IEnumerable<string> primaryKeys)
         {
             string primaryKey = "";
@@ -29,16 +46,23 @@ namespace wpf_gastosPessoais.Data
             return $"create table {name} ({string.Join(",", fields)}, {primaryKey})";
         }
 
-        public async void ExecuteQuerry(string querry)
+        public async void ExecuteQuerryAsync(string querry)
         {
             SqlCeCommand command = new SqlCeCommand(querry, dbConnection);
             await command.ExecuteNonQueryAsync();
         }
 
-        public async Task<IDataReader> ExecuteReader(string querry)
+        public async Task<IDataReader> ExecuteReaderAsync(string querry)
         {
             SqlCeCommand command = new SqlCeCommand(querry, dbConnection);
             DbDataReader reader = await command.ExecuteReaderAsync();
+            return reader;
+        }
+
+        public IDataReader ExecuteReader(string querry)
+        {
+            SqlCeCommand command = new SqlCeCommand(querry, dbConnection);
+            DbDataReader reader = command.ExecuteReader();
             return reader;
         }
 
