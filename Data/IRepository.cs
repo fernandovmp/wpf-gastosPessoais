@@ -8,7 +8,7 @@ namespace wpf_gastosPessoais.Data
 {
     public interface IRepository<T>
     {
-        T[] GetAll();
+        Task<T[]> GetAll();
         void Save(T entity);
         void Delete(T entity);
         void Update(T entity);

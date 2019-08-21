@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wpf_gastosPessoais.Models;
-using Database;
+using System.Globalization;
+using System.Data;
 
 namespace wpf_gastosPessoais.Data
 {
@@ -17,7 +18,11 @@ namespace wpf_gastosPessoais.Data
             {
                 if(nextId == null)
                 {
-                    nextId = DatabaseManager.NextId(new Goal());
+                    SqlServerCeManager database = new SqlServerCeManager();
+                    IDataReader reader = database.ExecuteReader($"select max(id) from Goals");
+                    if (reader.Read())
+                        nextId = !reader.IsDBNull(0) ? ((int)reader[0]) + 1 : 0;
+
                 }
                 return nextId.GetValueOrDefault();
             }
@@ -26,22 +31,48 @@ namespace wpf_gastosPessoais.Data
 
         public void Delete(Goal entity)
         {
-            DatabaseManager.Delete<Goal>($"Id = {entity.Id}");
+            SqlServerCeManager database = new SqlServerCeManager();
+            database.ExecuteQuerryAsync($"delete from Goals where Id = {entity.Id} ");
         }
 
-        public Goal[] GetAll()
+        public async Task<Goal[]> GetAll()
         {
-            return DatabaseManager.ReadAll<Goal>().ToArray();
+            List<Goal> list = new List<Goal>();
+            SqlServerCeManager database = new SqlServerCeManager();
+            string querry = $"select * from Goals";
+            var reader = await database.ExecuteReaderAsync(querry);
+            while (reader.Read())
+            {
+                Goal goal = new Goal
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Value = reader.GetDecimal(reader.GetOrdinal("Value")),
+                    SavedValue = reader.GetDecimal(reader.GetOrdinal("SavedValue")),
+                    Completed = reader.GetBoolean(reader.GetOrdinal("Completed"))
+                };
+                list.Add(goal);
+            }
+            return list.ToArray();
         }
 
         public void Save(Goal entity)
         {
-            DatabaseManager.Save(entity);
+            SqlServerCeManager database = new SqlServerCeManager();
+            string querry = $"insert into Goals (Name, Value, SavedValue, Completed) " +
+                $"values('{entity.Name}', {entity.Value.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                $"{entity.SavedValue.ToString("F2", CultureInfo.InvariantCulture)}, '{entity.Completed}')";
+            database.ExecuteQuerryAsync(querry);
         }
 
         public void Update(Goal entity)
         {
-            DatabaseManager.Update(entity, $"Id = {entity.Id}");
+            SqlServerCeManager database = new SqlServerCeManager();
+            string querry = $"update Goals " +
+                $"set Name = '{entity.Name}', Value = {entity.Value.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                $"SavedValue = {entity.SavedValue.ToString("F2", CultureInfo.InvariantCulture)}, " +
+                $"Completed = '{entity.Completed}' where Id = {entity.Id}";
+            database.ExecuteQuerryAsync(querry);
         }
     }
 }
