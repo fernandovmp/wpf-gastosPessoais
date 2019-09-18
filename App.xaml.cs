@@ -17,16 +17,17 @@ namespace wpf_gastosPessoais
     /// </summary>
     public partial class App : Application
     {
+        private const string DBCONNECTION = "Data Source=./db.sdf;Password=DB10pass";
+
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            SetInitialAppConfig();
-            CreateDbFile();
+            await CreateDbFile();
             await StartDatabase();
         }
 
         private async Task StartDatabase()
         {
-            SqlServerCeManager.OpenConnection(ConfigurationManager.AppSettings.Get("SQLConnection"));
+            SqlServerCeManager.OpenConnection(DBCONNECTION);
             SqlServerCeManager database = new SqlServerCeManager();
             await CreateEntriesTable(database);
             await CreateGoalsTable(database);
@@ -37,12 +38,13 @@ namespace wpf_gastosPessoais
         {
             var fields = new List<string>();
             var primaryKeys = new List<string>();
+            fields.Add("Id int identity");
             fields.Add("Name nvarchar (50)");
             fields.Add("Value decimal (9, 2)");
             fields.Add("EntryGroup nvarchar (50)");
             fields.Add("Editable bit");
             fields.Add("Type int");
-            primaryKeys.Add("Id int identity");
+            primaryKeys.Add("Id");
             await database.TryCreateTable("Entries", fields, primaryKeys);
         }
 
@@ -50,11 +52,12 @@ namespace wpf_gastosPessoais
         {
             var fields = new List<string>();
             var primaryKeys = new List<string>();
+            fields.Add("Id int identity");
             fields.Add("Name nvarchar (50)");
             fields.Add("Value decimal (9, 2)");
             fields.Add("SavedValue decimal (9, 2)");
             fields.Add("Completed bit");
-            primaryKeys.Add("Id int identity");
+            primaryKeys.Add("Id");
             await database.TryCreateTable("Goals", fields, primaryKeys);
         }
 
@@ -62,10 +65,11 @@ namespace wpf_gastosPessoais
         {
             var fields = new List<string>();
             var primaryKeys = new List<string>();
+            fields.Add("Id int identity");
             fields.Add("Name nvarchar (50)");
             fields.Add("Type int");
-            primaryKeys.Add("Id int identity");
-            if (await database.TryCreateTable("Goals", fields, primaryKeys))
+            primaryKeys.Add("Id");
+            if (await database.TryCreateTable("EntryGroups", fields, primaryKeys))
             {
                 var repository = new EntryGroupRepository();
                 foreach (var item in EntryGroup.DefaultGroups())
@@ -75,21 +79,10 @@ namespace wpf_gastosPessoais
             }
         }
 
-        private void SetInitialAppConfig()
+        private async Task CreateDbFile()
         {
-            var currentDomain = AppDomain.CurrentDomain;
-            string basePath = currentDomain.BaseDirectory;
-            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var settings = configFile.AppSettings.Settings;
-            settings["SQLConnection"].Value = settings["SQLConnection"].Value.Replace("|dbFilePath|", basePath);
-            configFile.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        private void CreateDbFile()
-        {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "/db.sdf")) return;
-            SqlCeEngine engine = new SqlCeEngine(ConfigurationManager.AppSettings.Get("SQLConnection"));
+            if (File.Exists("./db.sdf")) return;
+            SqlCeEngine engine = new SqlCeEngine(DBCONNECTION);
             engine.CreateDatabase();
         }
     }

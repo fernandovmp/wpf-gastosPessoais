@@ -32,7 +32,10 @@ namespace wpf_gastosPessoais.Data
         {
             string querry = $"select * from INFORMATION_SCHEMA.TABLES where TABLE_NAME = '{tableName}'";
             IDataReader reader = await ExecuteReaderAsync(querry);
-            if (reader != null) return true;
+            if (reader.Read() && reader[0] != null)
+            {
+                return true;
+            }
             return false;
         }
 
@@ -41,9 +44,9 @@ namespace wpf_gastosPessoais.Data
             string primaryKey = "";
             if (primaryKeys.Count() > 0)
             {
-                primaryKey = $"primary key({string.Join(",", primaryKeys)})";
+                primaryKey = $"primary key({string.Join(", ", primaryKeys)})";
             }
-            return $"create table {name} ({string.Join(",", fields)}, {primaryKey})";
+            return $"create table {name} ({string.Join(", ", fields)}, {primaryKey})";
         }
 
         public async void ExecuteQuerryAsync(string querry)
